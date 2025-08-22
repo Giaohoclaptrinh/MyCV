@@ -2,141 +2,614 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tôn Thất Nam Giao - CV</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tôn Thất Nam Giao — CV</title>
+  <meta name="description" content="CV - Tôn Thất Nam Giao - Junior Developer (Flutter, React, IoT)" />
   <style>
+    :root {
+      --bg: #0b1220;
+      /* Navy-ink background */
+      --card: rgba(255, 255, 255, 0.08);
+      --card-strong: rgba(255, 255, 255, 0.12);
+      --text: #eaf2ff;
+      --text-dim: #b8c4e0;
+      --brand: #7c8cff;
+      /* Indigo accent - primary brand color */
+      --brand-2: #e38dfc;
+      /* Magenta accent - secondary brand color */
+      --brand-3: #8be9a0;
+      /* Green accent - tertiary brand color */
+      --ok: #8be9a0;
+      --muted: #94a3b8;
+      --shadow: 0 12px 40px rgba(0, 0, 0, .35);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --maxw: 1080px;
+    }
+
+    /* Reset lite */
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
     body {
-      font-family: 'Arial', sans-serif;
+      height: 100%;
+    }
+
+    body {
       margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-      color: #333;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
     }
 
-    .container {
-      width: 90%;
-      max-width: 800px;
-      margin: 20px auto;
-      background: white;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
+    /* ---------- Background Canvas (JS draws here) ---------- */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(124, 140, 255, .16), transparent 60%),
+        radial-gradient(900px 600px at 110% 20%, rgba(227, 141, 252, .12), transparent 60%),
+        radial-gradient(1000px 700px at 30% 120%, rgba(139, 233, 160, .10), transparent 60%),
+        radial-gradient(800px 500px at 80% 80%, rgba(148, 163, 184, .08), transparent 60%);
+      filter: saturate(110%);
     }
 
-    header {
-      text-align: center;
-      background: #0073e6;
-      color: white;
-      padding: 20px 0;
-      border-radius: 8px 8px 0 0;
+    /* ---------- Page Shell ---------- */
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: var(--maxw);
+      margin: 64px auto;
+      padding: 0 20px;
     }
 
-    h2 {
-      border-bottom: 2px solid #0073e6;
-      padding-bottom: 5px;
+    header.hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .06));
+      border: 1px solid rgba(255, 255, 255, .12);
+      backdrop-filter: blur(8px);
+      padding: 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
+    .hero__top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    ul li {
-      padding: 5px 0;
+    .name {
+      font-weight: 800;
+      font-size: clamp(26px, 4vw, 36px);
+      letter-spacing: .2px;
+    }
+
+    .role {
+      color: var(--text-dim);
+      font-size: clamp(14px, 1.6vw, 16px);
+    }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    .pill {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, .10);
+      padding: 8px 12px;
+      border-radius: 999px;
     }
 
     .contact a {
-      color: #0073e6;
+      color: var(--text);
       text-decoration: none;
+      border-bottom: 1px dashed rgba(255, 255, 255, .25);
     }
 
-    @media (max-width: 600px) {
-      .container {
-        width: 95%;
-        padding: 15px;
+    .contact a:hover {
+      color: #fff;
+      border-bottom-color: transparent;
+    }
+
+    /* ---------- Grid: left: summary/skills | right: experience/edu ---------- */
+    .grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Cards ---------- */
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, .10);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, .18);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .18), transparent);
+      margin: 10px 0 2px;
+    }
+
+    /* ---------- Summary ---------- */
+    .summary p {
+      margin: 0;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ---------- Skills ---------- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .skill-group h3 {
+      margin: 0 0 6px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--brand);
+    }
+
+    /* Different colors for each skill category */
+    .skill-group:nth-child(1) h3 {
+      color: var(--brand);
+    }
+
+    /* Programming - Indigo */
+    .skill-group:nth-child(2) h3 {
+      color: var(--brand-2);
+    }
+
+    /* Mobile Development - Magenta */
+    .skill-group:nth-child(3) h3 {
+      color: var(--brand-3);
+    }
+
+    /* Web Development - Green */
+    .skill-group:nth-child(4) h3 {
+      color: var(--muted);
+    }
+
+    /* Tools & Workflow - Muted */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 13px;
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(124, 140, 255, .18), rgba(124, 140, 255, .08));
+      border: 1px solid rgba(124, 140, 255, .35);
+      padding: 6px 10px;
+      border-radius: 10px;
+    }
+
+    .tag.dim {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .05));
+      border-color: rgba(255, 255, 255, .18);
+      color: var(--text-dim);
+    }
+
+    /* Programming skills - Indigo theme */
+    .skill-group:nth-child(1) .tag {
+      background: linear-gradient(180deg, rgba(124, 140, 255, .18), rgba(124, 140, 255, .08));
+      border-color: rgba(124, 140, 255, .35);
+    }
+
+    /* Mobile Development skills - Magenta theme */
+    .skill-group:nth-child(2) .tag {
+      background: linear-gradient(180deg, rgba(227, 141, 252, .18), rgba(227, 141, 252, .08));
+      border-color: rgba(227, 141, 252, .35);
+    }
+
+    /* Web Development skills - Green theme */
+    .skill-group:nth-child(3) .tag {
+      background: linear-gradient(180deg, rgba(139, 233, 160, .18), rgba(139, 233, 160, .08));
+      border-color: rgba(139, 233, 160, .35);
+    }
+
+    /* Tools & Workflow skills - Muted theme */
+    .skill-group:nth-child(4) .tag {
+      background: linear-gradient(180deg, rgba(148, 163, 184, .18), rgba(148, 163, 184, .08));
+      border-color: rgba(148, 163, 184, .35);
+    }
+
+    /* ---------- Experience ---------- */
+    .xp {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .xp-item {
+      background: var(--card-strong);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: var(--radius-sm);
+      padding: 16px 16px 14px;
+      transition: transform .25s ease;
+    }
+
+    .xp-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .xp-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .xp-title {
+      margin: 0;
+      font-weight: 700;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .xp-meta {
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    .xp-role {
+      color: var(--brand-2);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .xp ul {
+      margin: 10px 0 0 0;
+      padding-left: 18px;
+    }
+
+    .xp li {
+      margin: 6px 0;
+      color: var(--text);
+    }
+
+    /* ---------- Education ---------- */
+    .edu h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .edu .meta {
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    /* ---------- Footer note ---------- */
+    .footnote {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin: 18px 0 0;
+    }
+
+    /* Print friendly */
+    @media print {
+      #bg-canvas {
+        display: none;
       }
 
-      header {
-        font-size: 16px;
+      .wrap {
+        margin: 0;
+      }
+
+      body {
+        background: #fff;
+        color: #000;
+      }
+
+      .card,
+      .xp-item {
+        box-shadow: none;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <h1>Tôn Thất Nam Giao</h1>
-      <p>IT Developer</p>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <main class="wrap">
+    <!-- ===== HERO ===== -->
+    <header class="hero">
+      <div class="hero__top">
+        <div>
+          <div class="name">Tôn Thất Nam Giao</div>
+          <div class="role">Junior Software Developer — Flutter • React • IoT</div>
+        </div>
+      </div>
+      <div class="contact">
+        <div class="pill">Huế, Việt Nam</div>
+        <div class="pill"><a href="mailto:ttngiao123@gmail.com">ttngiao123@gmail.com</a></div>
+        <div class="pill"><a href="tel:+84788599532">+84 788 599 532</a></div>
+        <div class="pill"><a href="https://github.com/giaodungcursor" target="_blank"
+            rel="noopener">github.com/giaodungcursor</a></div>
+        <!-- Nếu muốn dùng nick khác: đổi link trên thành GiaoDungCusor -->
+      </div>
     </header>
-    <section class="contact">
-      <p><strong>Address:</strong> 45 Thuận Thiên, Hương Văn, Hương Trà, Thành Phố Huế, Vietnam</p>
-      <p><strong>Phone:</strong> +84 788 599 532</p>
-      <p><strong>Email:</strong> <a href="mailto:ttngiao123@gmail.com">ttngiao123@gmail.com</a></p>
-      <p><strong>GitHub:</strong> <a href="https://github.com/Giaohoclaptrinh"
-          target="_blank">github.com/Giaohoclaptrinh</a></p>
-      <p><strong>Date of Birth:</strong> 04/07/2004</p>
-    </section>
-    <section class="about">
-      <h2>About Me</h2>
-      <p>Current 3rd-year student at the Hue University of Science (HUSC) looking to join the workforce to gain
-        real-world experience. Ability to complete tasks on time in both individual and team settings. Dependable and
-        reliable, ready to learn and grow with your company.</p>
-    </section>
-    <section class="skills">
-      <h2>Skills</h2>
-      <ul>
-        <li><strong>Java:</strong> Basic - Proficient in OOP, file export/import.</li>
-        <li><strong>HTML/CSS/JavaScript:</strong> Basic - Fundamental web development.</li>
-        <li><strong>C/C++:</strong> Basic - Familiar with OOP, structures, pointers.</li>
-        <li><strong>SQL:</strong> Basic - Proficient in SQL Server database management.</li>
-        <li><strong>Microsoft Office 365:</strong> Advanced - Proficient in office tasks.</li>
-        <li><strong>Flutter:</strong> Intermediate - Experience in mobile app development.</li>
-      </ul>
-    </section>
-    <section class="experience">
-      <h2>Experience</h2>
-      <h3>Geneat Software (09/11/2023 - 10/02/2024)</h3>
-      <p><strong>Role:</strong> Mobile App Developer</p>
-      <ul>
-        <li>Developed a mobile app using Flutter for the NMD Group.</li>
-        <li>Fixed bugs, optimized JSON files, developed APIs.</li>
-        <li>Tested app for quality assurance.</li>
-      </ul>
-      <h3>Ari (10/02/2024 - 07/03/2024)</h3>
-      <p><strong>Role:</strong> Web Developer Trainee</p>
-      <ul>
-        <li>Trained in Tailwind CSS and Vite React.</li>
-        <li>Developed multiple demo websites.</li>
-        <li>Worked closely with a design team.</li>
-      </ul>
-      <h3>Reference: Project Manager – Mr.Đức</h3>
-      <li>https://www.facebook.com/langphongmtb</li>
-      <h3>HueTronics (17/03/2025 – 01/08/2025)</h3>
-  <p><strong>Role:</strong> Web Developer Intern</p>
-  <ul>
-    <li>Developed a web-based IoT monitoring system using React and Firebase.</li>
-    <li>Built real-time dashboards to visualize sensor data (temperature, humidity, pH) from The Things Network.</li>
-    <li>Implemented device management features: add, edit, delete, and configure IoT devices.</li>
-    <li>Handled user/device permissions and access control using Firebase Auth and Firestore Rules.</li>
-    <li>Worked closely with backend and hardware teams to integrate cloud and IoT systems.</li>
-  </ul>
-    </section>
-    </section>
-    <section class="education">
-      <h2>Education</h2>
-      <p><strong>University of Science / Bachelor of Science</strong></p>
-      <p>Sep 2022 – Sep 2026, 77 Nguyễn Huệ, Thừa Thiên Huế</p>
-      <p>Currently a third-year student with a strong passion for software development. Active in competitive
-        programming, including ICPC HUSC.</p>
+
+    <!-- ===== GRID ===== -->
+    <section class="grid">
+      <!-- LEFT COLUMN -->
+      <aside class="left">
+        <!-- Summary -->
+        <section class="card summary">
+          <div class="section-title">
+            <h2>Summary</h2>
+          </div>
+          <div class="rule"></div>
+          <p>Final-year Computer Science student at Hue University of Science with hands-on experience in building
+            mobile and web applications. Comfortable with Flutter and React, Firebase on the cloud side, and IoT data
+            pipelines. Strong problem-solving mindset and teamwork; eager to contribute to production-grade features and
+            keep leveling up.</p>
+        </section>
+
+        <!-- Skills -->
+        <section class="card">
+          <div class="section-title">
+            <h2>Skills</h2>
+          </div>
+          <div class="rule"></div>
+
+          <div class="skills-grid">
+            <div class="skill-group">
+              <h3>Programming</h3>
+              <div class="tags">
+                <span class="tag">Java (OOP, file handling)</span>
+                <span class="tag dim">C/C++ (pointers, structs)</span>
+                <span class="tag">SQL (queries, joins)</span>
+                <span class="tag dim">JavaScript</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h3>Mobile Development</h3>
+              <div class="tags">
+                <span class="tag">Flutter (state management)</span>
+                <span class="tag">API integration</span>
+                <span class="tag dim">UI/UX implementation</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h3>Web Development</h3>
+              <div class="tags">
+                <span class="tag">React (Vite)</span>
+                <span class="tag">Tailwind CSS</span>
+                <span class="tag">Firebase</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h3>Tools & Workflow</h3>
+              <div class="tags">
+                <span class="tag">Git</span>
+                <span class="tag dim">Agile / Scrum</span>
+                <span class="tag dim">Microsoft Office 365</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <!-- RIGHT COLUMN -->
+      <section class="right">
+        <!-- Experience -->
+        <section class="card">
+          <div class="section-title">
+            <h2>Experience</h2>
+          </div>
+          <div class="rule"></div>
+
+          <div class="xp">
+            <article class="xp-item">
+              <div class="xp-head">
+                <h3 class="xp-title">HueTronics</h3>
+                <div class="xp-meta">Web Developer Intern · Mar 2025 — Aug 2025</div>
+              </div>
+              <div class="xp-role">React · Firebase · IoT</div>
+              <ul>
+                <li>Built a real-time IoT monitoring system with React + Firebase; visualized sensor streams
+                  (temperature, humidity, pH)
+                  from The Things Network.</li>
+                <li>Implemented device management (add / edit / delete / configure) and health status for 10+ test
+                  devices.</li>
+                <li>Hardened access with Firebase Auth and Firestore Rules; separated user/device permissions.</li>
+                <li>Worked with backend & hardware teams to integrate cloud–IoT pipelines; reduced end-to-end latency
+                  ~15% (testing).</li>
+              </ul>
+            </article>
+
+            <article class="xp-item">
+              <div class="xp-head">
+                <h3 class="xp-title">Ari</h3>
+                <div class="xp-meta">Web Developer Trainee · Feb 2024 — Mar 2024</div>
+              </div>
+              <div class="xp-role">React · Tailwind CSS</div>
+              <ul>
+                <li>Trained with React (Vite) + Tailwind for rapid prototyping; shipped <strong>5+</strong> responsive
+                  demo sites.</li>
+                <li>Collaborated with designers to translate Figma to pixel-accurate components, trimming rework ~30%.
+                </li>
+              </ul>
+            </article>
+
+            <article class="xp-item">
+              <div class="xp-head">
+                <h3 class="xp-title">Geneat Software</h3>
+                <div class="xp-meta">Mobile App Developer (Flutter) · Nov 2023 — Feb 2024</div>
+              </div>
+              <div class="xp-role">Flutter</div>
+              <ul>
+                <li>Developed and deployed a Flutter app for the NMD Group.</li>
+                <li>Optimized JSON handling and API usage → improved data transfer speed ~20% (internal test).</li>
+                <li>Resolved <strong>15+</strong> issues and executed QA test cases to raise stability before release.
+                </li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section class="card edu">
+          <div class="section-title">
+            <h2>Education</h2>
+          </div>
+          <div class="rule"></div>
+          <h3>Hue University of Science — B.Sc. in Computer Science</h3>
+          <div class="meta">Sep 2022 — Sep 2026 · Huế, Việt Nam · Final-year student</div>
+          <p style="margin-top:8px;color:var(--text-dim);">
+            Relevant Coursework: Data Structures & Algorithms, Database Systems, Operating Systems, Software
+            Engineering.
+            Competitive programming (ICPC HUSC).
+          </p>
+        </section>
+      </section>
     </section>
 
-  </div>
+    <div class="footnote">Reference available upon request</div>
+  </main>
+
+  <!-- ===== Tiny JS Background (subtle particle field) ===== -->
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      console.log("CV Loaded Successfully");
-    });
+    (function () {
+      const c = document.getElementById('bg-canvas');
+      const ctx = c.getContext('2d');
+      let w, h, dpr = Math.max(1, window.devicePixelRatio || 1);
+      const N = 70;             // particle count (keep small = smooth)
+      const R = 90;             // link radius
+      const P = [];
+
+      function resize() {
+        w = c.width = innerWidth * dpr;
+        h = c.height = innerHeight * dpr;
+        c.style.width = innerWidth + 'px';
+        c.style.height = innerHeight + 'px';
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      function rnd(a, b) { return a + Math.random() * (b - a); }
+
+      for (let i = 0; i < N; i++) {
+        P.push({
+          x: rnd(0, w), y: rnd(0, h),
+          vx: rnd(-0.25, 0.25), vy: rnd(-0.25, 0.25),
+          r: rnd(1.2, 2.0)
+        });
+      }
+
+      let mx = -9999, my = -9999; // mouse
+      window.addEventListener('mousemove', e => {
+        const rect = c.getBoundingClientRect();
+        mx = (e.clientX - rect.left) * dpr; my = (e.clientY - rect.top) * dpr;
+      });
+      window.addEventListener('mouseleave', () => { mx = -9999; my = -9999; });
+
+      function step() {
+        ctx.clearRect(0, 0, w, h);
+
+        // draw links
+        for (let i = 0; i < N; i++) {
+          const a = P[i];
+          a.x += a.vx; a.y += a.vy;
+
+          // gentle wrap
+          if (a.x < 0) a.x += w; if (a.x > w) a.x -= w;
+          if (a.y < 0) a.y += h; if (a.y > h) a.y -= h;
+
+          // mouse slight attraction
+          const dxm = a.x - mx, dym = a.y - my;
+          const dm = Math.hypot(dxm, dym);
+          if (dm < R * 1.2) {
+            a.vx -= dxm * 0.00002;
+            a.vy -= dym * 0.00002;
+          }
+
+          // nodes
+          ctx.beginPath();
+          ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(226, 232, 255, .35)';
+          ctx.fill();
+        }
+
+        // links second pass (avoid double work inside i loop)
+        for (let i = 0; i < N; i++) {
+          for (let j = i + 1; j < N; j++) {
+            const dx = P[i].x - P[j].x, dy = P[i].y - P[j].y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < R) {
+              const alpha = (1 - dist / R) * 0.25;
+              const g = ctx.createLinearGradient(P[i].x, P[i].y, P[j].x, P[j].y);
+              g.addColorStop(0, `rgba(124,140,255, ${alpha})`);
+              g.addColorStop(1, `rgba(227,141,252, ${alpha})`);
+              ctx.strokeStyle = g;
+              ctx.lineWidth = 1 * dpr;
+              ctx.beginPath();
+              ctx.moveTo(P[i].x, P[i].y);
+              ctx.lineTo(P[j].x, P[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(step);
+      }
+      step();
+    })();
   </script>
 </body>
 
